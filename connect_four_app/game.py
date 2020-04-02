@@ -20,5 +20,6 @@ def opponent_turn():
     pass
 
 
-def get_game_results():
-    pass
+def get_game_state():
+    state = json.loads(session['state'])
+    return state

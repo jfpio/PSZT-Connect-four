@@ -2,7 +2,7 @@ from flask import Flask, session
 from flask import request
 
 from connect_four_app.config import SECRET_KEY
-from connect_four_app.game import game_initialize, opponent_turn, get_game_results
+from connect_four_app.game import game_initialize, opponent_turn, get_game_state
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -13,7 +13,7 @@ def game():
     if request.method == 'POST':
         return game_initialize()
     elif request.method == 'GET':
-        get_game_results()
+        return get_game_state()
 
 
 if __name__ == '__main__':

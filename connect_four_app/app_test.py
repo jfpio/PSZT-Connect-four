@@ -28,3 +28,18 @@ def test_game_initialize(client):
     response = client.post('/', data=json.dumps(input_data), content_type='application/json')
     output_data = json.loads(response.data)
     assert output_data == excepted_data
+
+
+def test_get_game_state(client):
+    input_data = {
+        'turn': 1,
+        'depth': 10
+    }
+    client.post('/', data=json.dumps(input_data), content_type='application/json')
+    output_data = client.get('/').get_json()
+
+    assert output_data['winner'] in {0, 1, 2}
+    assert output_data['turn'] in {1, 2}
+    for row in output_data['board']:
+        for cell in row:
+            assert cell in {0, 1, 2}
